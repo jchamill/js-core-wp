@@ -1,0 +1,199 @@
+<?php
+
+namespace JS_Core\Modules;
+
+class SiteOrigin {
+  public function __construct() {
+
+    add_filter( 'siteorigin_panels_widget_dialog_tabs', array( $this, 'widget_tabs' ), 20 );
+
+    add_filter( 'siteorigin_panels_widgets', array( $this, 'remove_widgets' ) );
+
+    add_filter( 'siteorigin_panels_row_style_fields', array( $this, 'row_fields' ) , 15 );
+
+    add_filter( 'siteorigin_panels_row_style_css', array( $this, 'row_style_css' ), 15, 2 );
+
+    add_filter( 'siteorigin_panels_before_row', array( $this, 'before_row' ), 10, 2 );
+
+    add_filter( 'siteorigin_panels_after_row', array( $this, 'after_row' ), 10, 2 );
+
+    add_action( 'plugins_loaded', array( $this, 'load_widgets' ) );
+  }
+
+  public function load_widgets() {
+    require_once( \JS_Core\PLUGIN_DIR . 'modules/SiteOrigin/widgets/example/example.php' );
+  }
+
+  public function widget_tabs( $tabs ) {
+    $tabs[] = array(
+      'title' => __( 'JS Core', 'js-core' ),
+      'filter' => array(
+        'groups' => array( 'js-core' )
+      )
+    );
+
+    return $tabs;
+  }
+
+  public function remove_widgets( $widgets ) {
+    unset($widgets['WP_Widget_Archives']);
+    unset($widgets['WP_Widget_Media_Audio']);
+    unset($widgets['WP_Widget_Calendar']);
+    unset($widgets['WP_Widget_Categories']);
+    unset($widgets['WP_Nav_Menu_Widget']);
+    unset($widgets['WP_Widget_Media_Image']);
+    unset($widgets['WP_Widget_Meta']);
+    unset($widgets['WP_Widget_Pages']);
+    unset($widgets['WP_Widget_RSS']);
+    unset($widgets['WP_Widget_Recent_Comments']);
+    unset($widgets['WP_Widget_Recent_Posts']);
+    unset($widgets['WP_Widget_Search']);
+    unset($widgets['SiteOrigin_Panels_Widgets_PostLoop']);
+    unset($widgets['SiteOrigin_Panels_Widgets_PostContent']);
+    unset($widgets['SiteOrigin_Panels_Widgets_Layout']);
+    unset($widgets['WP_Widget_Tag_Cloud']);
+    unset($widgets['WP_Widget_Text']);
+    unset($widgets['WP_Widget_Media_Video']);
+
+    return $widgets;
+  }
+
+  public function row_fields( $fields ) {
+    // New fields.
+    $fields['so_wrapper_class'] = array(
+      'name'        => __( 'Wrapper Class' ),
+      'type'        => 'text',
+      'group'       => 'attributes',
+      'description' => __( 'A CSS class on the wrapper.' ),
+      'priority'    => 5,
+    );
+
+    $fields['so_default_padding'] = array(
+      'name' => __('Default Padding'),
+      'type' => 'select',
+      'group' => 'layout',
+      'default' => 'top-bottom-padding',
+      'options' => array(
+        'top-bottom-padding' => __('Top and Bottom'),
+        'top-only-padding' => __('Top Only'),
+        'bottom-only-padding' => __('Bottom Only'),
+        'no-padding' => __('None'),
+      ),
+      'priority' => 7,
+    );
+
+    $fields['so_row_layout'] = array(
+      'name' => __( 'Row Layout' ),
+      'type' => 'select',
+      'group' => 'layout',
+      'options' => array(
+        '' => __( 'Standard' ),
+        'so-fullwidth' => __( 'Full Width' ),
+      ),
+      'priority' => 10,
+    );
+
+    $fields['so_background'] = array(
+      'name' => __( 'Background Style' ),
+      'type' => 'select',
+      'group' => 'design',
+      'options' => array(
+        '' => __( 'None' ),
+        'so-bg-light-gray' => __('Light Gray'),
+        'so-bg-dark-gray' => __('Dark Gray'),
+        'so-bg-blue' => __('Blue'),
+        'so-bg-red' => __('Red'),
+      ),
+      'priority' => 1,
+    );
+
+    $fields['so_light_text'] = array(
+      'name'        => __('Light Text'),
+      'type'        => 'checkbox',
+      'group'       => 'design',
+      'description' => __('Lighter text to show on a darker background.'),
+      'priority'    => 10,
+    );
+
+    // Remove fields.
+    if ( isset($fields['row_stretch']) ) {
+      unset($fields['row_stretch']);
+    }
+    if ( isset($fields['background']) ) {
+      unset($fields['background']);
+    }
+    if ( isset($fields['background_display']) ) {
+      unset($fields['background_display']);
+    }
+    if ( isset($fields['border_color']) ) {
+      unset($fields['border_color']);
+    }
+
+    // Update fields.
+    if ( isset($fields['background_display']) ) {
+      $fields['background_display']['default'] = 'cover';
+    }
+
+    return $fields;
+  }
+
+  public function row_style_css( $css, $style ) {
+    // Remove background images from panel-row-style div, we handle ourselves.
+    $css['background-image'] = false;
+
+    return $css;
+  }
+
+  public function before_row( $grid_index, $attributes ) {
+    $classes = array('so-row');
+    $bg_image = '';
+
+    if( !empty( $attributes['style']['so_light_text'] ) ) {
+      $classes[] = 'so-light-text';
+    }
+    if ( !empty( $attributes['style']['so_wrapper_class'] ) ) {
+      $classes[] = esc_attr($attributes['style']['so_wrapper_class']);
+    }
+    if ( !empty( $attributes['style']['so_row_layout'] ) ) {
+      $classes[] = esc_attr($attributes['style']['so_row_layout']);
+    }
+    if ( !empty( $attributes['style']['so_background'] ) ) {
+      $classes[] = esc_attr($attributes['style']['so_background']);
+    }
+    if ( !empty( $attributes['style']['so_default_padding'] ) ) {
+      $classes[] = esc_attr($attributes['style']['so_default_padding']);
+    }
+    if ( !empty( $attributes['style']['background_image_attachment'] ) ) {
+      $bg_image = self::get_attachment_image_src( $attributes['style']['background_image_attachment'], 'full' );
+    }
+
+    $style = '';
+    if ( ! empty( $bg_image ) ) {
+      $style = ' style="background-image:url(' . ( is_array( $bg_image ) ? esc_url( $bg_image[0] ) : esc_url( $bg_image ) ) . ');"';
+    }
+
+    return '<div class="' . implode(' ', $classes) . '"' . $style . '><div class="container">';
+  }
+
+
+  function after_row( $grid_index, $grid_attributes ) {
+    return '</div></div>';
+  }
+
+  /**
+   * This function is a duplicate directly from the SiteOrigin plugin.
+   */
+  public static function get_attachment_image_src( $image, $size = 'full' ){
+    if( empty( $image ) ) {
+      return false;
+    }
+    else if( is_numeric( $image ) ) {
+      return wp_get_attachment_image_src( $image, $size );
+    }
+    else if( is_string( $image ) ) {
+      preg_match( '/(.*?)\#([0-9]+)x([0-9]+)$/', $image, $matches );
+      return ! empty( $matches ) ? $matches : false;
+    }
+  }
+
+}
