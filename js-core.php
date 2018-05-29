@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: JS Core
- * Plugin URI: https://www.jacksonspalding.com
+ * Plugin URI: https://github.com/jchamill/js-core-wp
  * Description: Wordpress and SiteOrigin Page Builder enhancements.
  * Version: 0.0.1
  * Author: JC Hamill
