@@ -4,7 +4,6 @@ namespace JS_Core\Modules;
 
 class SiteOrigin {
   public function __construct() {
-
     add_filter( 'siteorigin_panels_widget_dialog_tabs', array( $this, 'widget_tabs' ), 20 );
 
     add_filter( 'siteorigin_panels_widgets', array( $this, 'remove_widgets' ) );
@@ -21,6 +20,11 @@ class SiteOrigin {
   }
 
   public function load_widgets() {
+
+    if ( ! class_exists( 'SiteOrigin_Widget' ) ) {
+      return;
+    }
+
     require_once( \JS_Core\PLUGIN_DIR . 'modules/SiteOrigin/widgets/example/example.php' );
   }
 
