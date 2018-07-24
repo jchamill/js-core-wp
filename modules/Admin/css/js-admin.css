@@ -1,0 +1,180 @@
+#wpadminbar {
+    color: #111;
+    background: #fff;
+}
+
+#wpadminbar::before {
+    content: "\f120";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 160px;
+    height: 28px;
+    padding-top: 4px;
+    background: #0085ba;
+    font: 400 26px/1 dashicons;
+    text-align: center;
+    color: #004d6b;
+}
+
+.folded #wpadminbar::before {
+    width: 36px;
+}
+
+#wp-toolbar {
+    padding-left: 160px;
+}
+
+.folded #wp-toolbar {
+    padding-left: 36px;
+}
+
+#wp-admin-bar-wp-logo {
+    display: none;
+}
+
+#wpadminbar .ab-empty-item,
+#wpadminbar a.ab-item,
+#wpadminbar > #wp-toolbar span.ab-label,
+#wpadminbar > #wp-toolbar span.noticon {
+    color: #111;
+}
+
+#wpadminbar #wp-admin-bar-comments .count-0 {
+    opacity: 1;
+}
+
+#wpadminbar #adminbarsearch::before,
+#wpadminbar .ab-icon::before,
+#wpadminbar .ab-item::before {
+    color: #222;
+    transition: none;
+}
+
+#wpadminbar .ab-top-menu > li.hover > .ab-item,
+#wpadminbar.nojq .quicklinks .ab-top-menu > li > .ab-item:focus,
+#wpadminbar:not(.mobile) .ab-top-menu > li:hover > .ab-item,
+#wpadminbar:not(.mobile) .ab-top-menu > li > .ab-item:focus {
+    background: #f65b5c;
+    color: #fff;
+}
+
+#wpadminbar .quicklinks .ab-sub-wrapper .menupop.hover > a,
+#wpadminbar .quicklinks .menupop ul li a:focus,
+#wpadminbar .quicklinks .menupop ul li a:focus strong,
+#wpadminbar .quicklinks .menupop ul li a:hover,
+#wpadminbar .quicklinks .menupop ul li a:hover strong,
+#wpadminbar .quicklinks .menupop.hover ul li a:focus,
+#wpadminbar .quicklinks .menupop.hover ul li a:hover,
+#wpadminbar .quicklinks .menupop.hover ul li div[tabindex]:focus,
+#wpadminbar .quicklinks .menupop.hover ul li div[tabindex]:hover,
+#wpadminbar li #adminbarsearch.adminbar-focused::before,
+#wpadminbar li .ab-item:focus .ab-icon::before,
+#wpadminbar li .ab-item:focus::before,
+#wpadminbar li a:focus .ab-icon::before,
+#wpadminbar li.hover .ab-icon::before,
+#wpadminbar li.hover .ab-item::before,
+#wpadminbar li:hover #adminbarsearch::before,
+#wpadminbar li:hover .ab-icon::before,
+#wpadminbar li:hover .ab-item::before,
+#wpadminbar.nojs .quicklinks .menupop:hover ul li a:focus,
+#wpadminbar.nojs .quicklinks .menupop:hover ul li a:hover {
+    color: #fff;
+}
+
+#wpadminbar:not(.mobile) > #wp-toolbar a:focus span.ab-label,
+#wpadminbar:not(.mobile) > #wp-toolbar li:hover span.ab-label,
+#wpadminbar > #wp-toolbar li.hover span.ab-label {
+    color: #fff;
+}
+
+#wpadminbar .menupop .ab-sub-wrapper,
+#wpadminbar .shortlink-input {
+    box-shadow: none;
+}
+
+#screen-meta-links {
+    margin-top: 6px;
+}
+
+#screen-meta {
+    border: 0;
+    margin: 6px 20px 0 0;
+    box-shadow: none;
+}
+
+#adminmenu,
+#adminmenu .wp-submenu,
+#adminmenuback,
+#adminmenuwrap {
+    background-color: #0c1514;
+}
+
+#adminmenu .wp-has-current-submenu .wp-submenu .wp-submenu-head,
+#adminmenu .wp-menu-arrow,
+#adminmenu .wp-menu-arrow div,
+#adminmenu li.current a.menu-top,
+#adminmenu li.wp-has-current-submenu a.wp-has-current-submenu,
+.folded #adminmenu li.current.menu-top,
+.folded #adminmenu li.wp-has-current-submenu {
+    background: #f65b5c;
+}
+
+#adminmenu .awaiting-mod,
+#adminmenu .update-plugins {
+    background-color: #f65b5c;
+}
+
+#adminmenu div.wp-menu-image::before {
+    color: rgba(255,255,255,.8);
+}
+
+input[type="text"],
+input[type="search"],
+input[type="radio"],
+input[type="tel"],
+input[type="time"],
+input[type="url"],
+input[type="week"],
+input[type="password"],
+input[type="checkbox"],
+input[type="color"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="email"],
+input[type="month"],
+input[type="number"],
+select,
+textarea {
+    box-shadow: none;
+    border: 1px solid #ddd;
+}
+
+#contextual-help-link-wrap,
+#screen-options-link-wrap {
+    border: 0;
+    box-shadow: none;
+}
+
+.wp-core-ui .button,
+.wp-core-ui .button-secondary {
+    box-shadow: none;
+}
+
+.wp-core-ui .button-primary {
+    border: 0;
+    box-shadow: none;
+    text-shadow: none;
+}
+
+#post-status-info,
+.postbox {
+    box-shadow: none;
+    border: 0;
+}
+
+#major-publishing-actions {
+    background: #fff;
+}

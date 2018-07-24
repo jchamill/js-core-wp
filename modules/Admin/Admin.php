@@ -7,6 +7,10 @@ class Admin {
     register_activation_hook( \JS_Core\PLUGIN_FILE, array( $this, 'activate' ) );
 
     add_action( 'admin_menu', array( $this, 'admin_menu' ), 999 );
+
+    add_action( 'admin_enqueue_scripts', array( $this, 'admin_theme_style' ) );
+
+    add_action( 'login_enqueue_scripts', array( $this, 'admin_theme_style' ) );
   }
 
   public function activate() {
@@ -52,5 +56,9 @@ class Admin {
       remove_menu_page( 'edit.php' );
       remove_menu_page( 'edit-comments.php' );
     }
+  }
+
+  public function admin_theme_style() {
+    wp_enqueue_style( 'js-admin-theme', plugins_url( 'css/js-admin.css', __FILE__ ) );
   }
 }

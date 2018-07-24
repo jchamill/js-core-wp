@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'JS_Core\PLUGIN_FILE', __FILE__ );
 define( 'JS_Core\PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
-require_once \JS_Core\PLUGIN_DIR . 'modules/Admin.php';
+require_once \JS_Core\PLUGIN_DIR . 'modules/Admin/Admin.php';
 new \JS_Core\Modules\Admin();
 
 require_once \JS_Core\PLUGIN_DIR . 'modules/Structure/Structure.php';
