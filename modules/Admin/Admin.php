@@ -12,7 +12,9 @@ class Admin {
 
     add_action( 'admin_enqueue_scripts', array( $this, 'admin_theme_style' ) );
 
-    add_action( 'login_enqueue_scripts', array( $this, 'admin_theme_style' ) );
+    add_action( 'wp_enqueue_scripts', array( $this, 'admin_theme_style' ) );
+
+    add_filter( 'body_class', array( $this, 'body_classes' ) );
   }
 
   public function activate() {
@@ -70,6 +72,17 @@ class Admin {
   }
 
   public function admin_theme_style() {
-    wp_enqueue_style( 'js-admin-theme', plugins_url( 'css/js-admin.css', __FILE__ ) );
+    if ( is_user_logged_in() ) {
+      wp_enqueue_style( 'js-admin-theme', plugins_url( 'css/js-admin.css', __FILE__ ) );
+    }
+  }
+
+  public function body_classes( $classes ) {
+    if ( is_user_logged_in() ) {
+      // Add folded class so admin bar on the frontend shows small WordPress icon.
+      $classes[] = 'folded';
+    }
+
+    return $classes;
   }
 }

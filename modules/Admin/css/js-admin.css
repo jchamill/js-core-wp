@@ -10,12 +10,13 @@
     top: 0;
     left: 0;
     width: 160px;
-    height: 28px;
+    height: 32px;
     padding-top: 4px;
     background: #0085ba;
     font: 400 26px/1 dashicons;
     text-align: center;
     color: #004d6b;
+    box-sizing: border-box;
 }
 
 .folded #wpadminbar::before {
@@ -73,18 +74,21 @@
 #wpadminbar .quicklinks .menupop.hover ul li a:hover,
 #wpadminbar .quicklinks .menupop.hover ul li div[tabindex]:focus,
 #wpadminbar .quicklinks .menupop.hover ul li div[tabindex]:hover,
-#wpadminbar li #adminbarsearch.adminbar-focused::before,
 #wpadminbar li .ab-item:focus .ab-icon::before,
 #wpadminbar li .ab-item:focus::before,
 #wpadminbar li a:focus .ab-icon::before,
 #wpadminbar li.hover .ab-icon::before,
 #wpadminbar li.hover .ab-item::before,
-#wpadminbar li:hover #adminbarsearch::before,
 #wpadminbar li:hover .ab-icon::before,
 #wpadminbar li:hover .ab-item::before,
 #wpadminbar.nojs .quicklinks .menupop:hover ul li a:focus,
 #wpadminbar.nojs .quicklinks .menupop:hover ul li a:hover {
     color: #fff;
+}
+
+#wpadminbar li #adminbarsearch.adminbar-focused::before,
+#wpadminbar li:hover #adminbarsearch::before {
+    color: #f65b5c;
 }
 
 #wpadminbar:not(.mobile) > #wp-toolbar a:focus span.ab-label,
@@ -98,11 +102,11 @@
     box-shadow: none;
 }
 
-#screen-meta-links {
+.wp-admin #screen-meta-links {
     margin-top: 6px;
 }
 
-#screen-meta {
+.wp-admin #screen-meta {
     border: 0;
     margin: 6px 20px 0 0;
     box-shadow: none;
@@ -134,51 +138,51 @@
     color: rgba(255,255,255,.8);
 }
 
-input[type="text"],
-input[type="search"],
-input[type="radio"],
-input[type="tel"],
-input[type="time"],
-input[type="url"],
-input[type="week"],
-input[type="password"],
-input[type="checkbox"],
-input[type="color"],
-input[type="date"],
-input[type="datetime"],
-input[type="datetime-local"],
-input[type="email"],
-input[type="month"],
-input[type="number"],
-select,
-textarea {
+.wp-admin input[type="text"],
+.wp-admin input[type="search"],
+.wp-admin input[type="radio"],
+.wp-admin input[type="tel"],
+.wp-admin input[type="time"],
+.wp-admin input[type="url"],
+.wp-admin input[type="week"],
+.wp-admin input[type="password"],
+.wp-admin input[type="checkbox"],
+.wp-admin input[type="color"],
+.wp-admin input[type="date"],
+.wp-admin input[type="datetime"],
+.wp-admin input[type="datetime-local"],
+.wp-admin input[type="email"],
+.wp-admin input[type="month"],
+.wp-admin input[type="number"],
+.wp-admin select,
+.wp-admin textarea {
     box-shadow: none;
     border: 1px solid #ddd;
 }
 
-#contextual-help-link-wrap,
-#screen-options-link-wrap {
+.wp-admin #contextual-help-link-wrap,
+.wp-admin #screen-options-link-wrap {
     border: 0;
     box-shadow: none;
 }
 
-.wp-core-ui .button,
-.wp-core-ui .button-secondary {
+.wp-admin .wp-core-ui .button,
+.wp-admin .wp-core-ui .button-secondary {
     box-shadow: none;
 }
 
-.wp-core-ui .button-primary {
+.wp-admin .wp-core-ui .button-primary {
     border: 0;
     box-shadow: none;
     text-shadow: none;
 }
 
-#post-status-info,
-.postbox {
+.wp-admin #post-status-info,
+.wp-admin .postbox {
     box-shadow: none;
     border: 0;
 }
 
-#major-publishing-actions {
+.wp-admin #major-publishing-actions {
     background: #fff;
 }
