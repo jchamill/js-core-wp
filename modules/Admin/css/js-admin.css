@@ -34,6 +34,10 @@
     display: none;
 }
 
+#wp-admin-bar-my-account .display-name {
+    font-weight: bold;
+}
+
 #wpadminbar .ab-empty-item,
 #wpadminbar a.ab-item,
 #wpadminbar > #wp-toolbar span.ab-label,

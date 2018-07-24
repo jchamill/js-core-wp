@@ -8,6 +8,8 @@ class Admin {
 
     add_action( 'admin_menu', array( $this, 'admin_menu' ), 999 );
 
+    add_filter( 'admin_bar_menu', array( $this, 'customize_greeting' ), 25 );
+
     add_action( 'admin_enqueue_scripts', array( $this, 'admin_theme_style' ) );
 
     add_action( 'login_enqueue_scripts', array( $this, 'admin_theme_style' ) );
@@ -56,6 +58,15 @@ class Admin {
       remove_menu_page( 'edit.php' );
       remove_menu_page( 'edit-comments.php' );
     }
+  }
+
+  public function customize_greeting( $wp_admin_bar ) {
+    $my_account = $wp_admin_bar->get_node( 'my-account' );
+    $my_account_title = str_replace( 'Howdy,', 'Hello', $my_account->title );
+    $wp_admin_bar->add_node( array(
+      'id' => 'my-account',
+      'title' => $my_account_title,
+    ) );
   }
 
   public function admin_theme_style() {
