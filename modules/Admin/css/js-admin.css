@@ -166,12 +166,12 @@
     box-shadow: none;
 }
 
-.wp-admin .wp-core-ui .button,
-.wp-admin .wp-core-ui .button-secondary {
+.wp-admin.wp-core-ui .button,
+.wp-admin.wp-core-ui .button-secondary {
     box-shadow: none;
 }
 
-.wp-admin .wp-core-ui .button-primary {
+.wp-admin.wp-core-ui .button-primary {
     border: 0;
     box-shadow: none;
     text-shadow: none;
