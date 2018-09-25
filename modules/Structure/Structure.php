@@ -34,7 +34,7 @@ class Structure {
         'with_front' => false,
       ),
       'menu_icon' => 'dashicons-groups',
-      'taxonomies' => array( 'services' ),
+      'taxonomies' => array( 'service' ),
     );
 
     register_post_type( 'person', array_merge( $defaults, $post_type ) );
@@ -58,12 +58,12 @@ class Structure {
 
   public function register_taxonomies() {
     register_taxonomy(
-      'services',
+      'service',
       array( 'person' ),
       array(
         'label' => __( 'Services' ),
         'rewrite' => array(
-          'slug' => 'services',
+          'slug' => 'service',
           'with_front' => false,
         ),
         'hierarchical' => true,

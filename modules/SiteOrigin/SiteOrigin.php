@@ -12,6 +12,10 @@ class SiteOrigin {
 
     add_filter( 'siteorigin_panels_row_style_css', array( $this, 'row_style_css' ), 15, 2 );
 
+    add_filter( 'siteorigin_panels_widget_style_fields', array( $this, 'widget_fields' ) , 15 );
+
+    add_filter( 'siteorigin_panels_widget_style_attributes', array( $this, 'widget_style_attributes' ), 10, 2 );
+
     add_filter( 'siteorigin_panels_before_row', array( $this, 'before_row' ), 10, 2 );
 
     add_filter( 'siteorigin_panels_after_row', array( $this, 'after_row' ), 10, 2 );
@@ -90,9 +94,12 @@ class SiteOrigin {
       'name' => __( 'Row Layout' ),
       'type' => 'select',
       'group' => 'layout',
+      'default' => 'so-width-large',
       'options' => array(
-        '' => __( 'Standard' ),
-        'so-fullwidth' => __( 'Full Width' ),
+        'so-width-large' => __( 'Large' ),
+        'so-width-medium' => __( 'Medium' ),
+        'so-width-small' => __( 'Small' ),
+        'so-width-full' => __( 'Full Width' ),
       ),
       'priority' => 10,
     );
@@ -146,6 +153,35 @@ class SiteOrigin {
     $css['background-image'] = false;
 
     return $css;
+  }
+
+  public function widget_fields( $fields ) {
+
+    $fields['so_widget_bottom_style'] = array(
+      'name' => __( 'Bottom Style' ),
+      'type' => 'select',
+      'group' => 'design',
+      'options' => array(
+        '' => __( 'None' ),
+        'so-bottom-gray-border' => __('Gray Border'),
+      ),
+      'priority' => 12,
+    );
+
+    unset( $fields['background'] );
+    unset( $fields['border_color'] );
+    unset( $fields['font_color'] );
+    unset( $fields['link_color'] );
+
+    return $fields;
+  }
+
+  function widget_style_attributes( $attributes, $style ) {
+    if ( !empty( $style['so_widget_bottom_style'] ) ) {
+      $attributes['class'][] = esc_attr( $style['so_widget_bottom_style'] );
+    }
+
+    return $attributes;
   }
 
   public function before_row( $grid_index, $attributes ) {
