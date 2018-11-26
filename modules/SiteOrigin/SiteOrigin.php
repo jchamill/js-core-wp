@@ -30,6 +30,7 @@ class SiteOrigin {
     }
 
     require_once( \JS_Core\PLUGIN_DIR . 'modules/SiteOrigin/widgets/posts/posts.php' );
+    require_once( \JS_Core\PLUGIN_DIR . 'modules/SiteOrigin/widgets/faqs/faqs.php' );
   }
 
   public function widget_tabs( $tabs ) {
