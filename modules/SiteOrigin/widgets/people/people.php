@@ -1,14 +1,14 @@
 <?php
 
-class JS_Core_Faqs_Widget extends SiteOrigin_Widget {
+class JS_Core_People_Widget extends SiteOrigin_Widget {
 
   function __construct() {
 
     parent::__construct(
-      'js-core-faqs',
-      'FAQs',
+      'js-core-people',
+      'People',
       array(
-        'description' => 'Display frequently asked questions.',
+        'description' => 'Display team members.',
         'panels_groups' => array('js-core'),
       ),
       array(),
@@ -17,21 +17,35 @@ class JS_Core_Faqs_Widget extends SiteOrigin_Widget {
     );
   }
 
+  function get_widget_form() {
+    return array(
+      'title' => array(
+        'type' => 'text',
+        'label' => 'Title',
+      ),
+      'attachment_size' => array(
+        'label' => 'Image size',
+        'type' => 'image-size',
+        'default' => 'full',
+      ),
+    );
+  }
+
   public function get_template_variables( $instance, $args ) {
     if( empty( $instance ) ) return array();
 
     $categories = get_categories(array(
-      'taxonomy' => 'faq_category',
+      'taxonomy' => 'person_category',
       'hide_empty' => true,
     ));
 
-    $faqs = array();
+    $people = array();
     foreach ($categories as $category) {
       $loop = new WP_Query(array(
-        'post_type' => 'faq',
+        'post_type' => 'person',
         'posts_per_page' => -1,
         'tax_query' => array(array(
-          'taxonomy' => 'faq_category',
+          'taxonomy' => 'person_category',
           'field' => 'term_id',
           'terms' => $category->term_id,
         )),
@@ -39,7 +53,7 @@ class JS_Core_Faqs_Widget extends SiteOrigin_Widget {
 
       $weight = \JS_Core\Modules\Structure::get_term_field( $category->term_id, 'crb_weight' );
 
-      $faqs[$category->term_id] = array(
+      $people[$category->term_id] = array(
         'term_id' => $category->term_id,
         'weight' => $weight,
         'name' => $category->name,
@@ -47,14 +61,14 @@ class JS_Core_Faqs_Widget extends SiteOrigin_Widget {
       );
     }
 
-    uasort($faqs, function($a, $b) {
+    uasort($people, function($a, $b) {
       return $a['weight'] - $b['weight'];
     });
 
     return array(
-      'faqs' => $faqs,
+      'people' => $people,
     );
   }
 }
 
-siteorigin_widget_register( 'js-core-faqs', __FILE__, 'JS_Core_Faqs_Widget' );
+siteorigin_widget_register( 'js-core-people', __FILE__, 'JS_Core_People_Widget' );

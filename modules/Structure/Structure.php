@@ -16,6 +16,7 @@ class Structure {
 
   public function admin_scripts() {
     wp_enqueue_script( 'js-admin-faqs', plugins_url( 'js/js-admin-faqs.js', __FILE__ ) );
+    wp_enqueue_script( 'js-admin-people', plugins_url( 'js/js-admin-people.js', __FILE__ ) );
   }
 
   public function initialize() {
@@ -41,7 +42,7 @@ class Structure {
         'with_front' => false,
       ),
       'menu_icon' => 'dashicons-groups',
-      'taxonomies' => array( 'service' ),
+      'taxonomies' => array( 'person_category' ),
     );
 
     register_post_type( 'person', array_merge( $defaults, $post_type ) );
@@ -84,12 +85,12 @@ class Structure {
 
   public function register_taxonomies() {
     register_taxonomy(
-      'service',
+      'person_category',
       array( 'person' ),
       array(
-        'label' => __( 'Services' ),
+        'label' => __( 'Categories' ),
         'rewrite' => array(
-          'slug' => 'service',
+          'slug' => 'person-category',
           'with_front' => false,
         ),
         'hierarchical' => true,
@@ -100,7 +101,7 @@ class Structure {
       'faq_category',
       array( 'faq' ),
       array(
-        'label' => __( 'FAQ Categories' ),
+        'label' => __( 'Categories' ),
         'rewrite' => array(
           'slug' => 'faq-category',
           'with_front' => false,

@@ -27,7 +27,13 @@ Container::make( 'post_meta', 'Meta' )
  */
 
 Container::make( 'term_meta', 'Meta' )
-  ->show_on_taxonomy( 'services' )
+  ->show_on_taxonomy( 'person_category' )
+  ->add_fields( array(
+    Field::make( 'text', 'crb_weight', 'Weight' ),
+  ) );
+
+Container::make( 'term_meta', 'Meta' )
+  ->show_on_taxonomy( 'faq_category' )
   ->add_fields( array(
     Field::make( 'text', 'crb_weight', 'Weight' ),
   ) );

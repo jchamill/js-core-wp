@@ -6,7 +6,7 @@
   $(document).ready(function() {
     $('#publish, #save-post').click(function(e) {
       if ($('#taxonomy-faq_category input:checked').length == 0) {
-        $('#post').prepend('<div class="error notice"><p>FAQ Category is required.</p></div>');
+        $('#post').prepend('<div class="error notice"><p>Category is required.</p></div>');
         $('#taxonomy-faq_category').addClass('error');
         return false;
       }
