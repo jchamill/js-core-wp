@@ -32,6 +32,7 @@ class SiteOrigin {
     require_once( \JS_Core\PLUGIN_DIR . 'modules/SiteOrigin/widgets/posts/posts.php' );
     require_once( \JS_Core\PLUGIN_DIR . 'modules/SiteOrigin/widgets/people/people.php' );
     require_once( \JS_Core\PLUGIN_DIR . 'modules/SiteOrigin/widgets/faqs/faqs.php' );
+    require_once( \JS_Core\PLUGIN_DIR . 'modules/SiteOrigin/widgets/logos/logos.php' );
   }
 
   public function widget_tabs( $tabs ) {
