@@ -27,6 +27,7 @@ class Structure {
   public function create_post_types() {
     $this->create_person_post_type();
     $this->create_faq_post_type();
+    $this->create_testimonial_post_type();
   }
 
   public function create_person_post_type() {
@@ -57,7 +58,7 @@ class Structure {
         'singular_name' => __( 'Faq' ),
       ),
       'rewrite' => array(
-        'slug' => 'faq',
+        'slug' => 'faqs',
         'with_front' => false,
       ),
       'menu_icon' => 'dashicons-editor-help',
@@ -65,6 +66,25 @@ class Structure {
     );
 
     register_post_type( 'faq', array_merge( $defaults, $post_type ) );
+  }
+
+  public function create_testimonial_post_type() {
+    $defaults = $this->get_post_type_defaults();
+
+    $post_type = array(
+      'labels' => array(
+        'name' => __( 'Testimonials' ),
+        'singular_name' => __( 'Testimonial' ),
+      ),
+      'rewrite' => array(
+        'slug' => 'testimonials',
+        'with_front' => false,
+      ),
+      'menu_icon' => 'dashicons-format-quote',
+      'taxonomies' => array( 'testimonial_category' ),
+    );
+
+    register_post_type( 'testimonial', array_merge( $defaults, $post_type ) );
   }
 
   public function get_post_type_defaults() {
@@ -104,6 +124,19 @@ class Structure {
         'label' => __( 'Categories' ),
         'rewrite' => array(
           'slug' => 'faq-category',
+          'with_front' => false,
+        ),
+        'hierarchical' => true,
+      )
+    );
+
+    register_taxonomy(
+      'testimonial_category',
+      array( 'testimonial' ),
+      array(
+        'label' => __( 'Categories' ),
+        'rewrite' => array(
+          'slug' => 'testimonial-category',
           'with_front' => false,
         ),
         'hierarchical' => true,

@@ -29,6 +29,7 @@ class SiteOrigin {
       return;
     }
 
+    require_once( \JS_Core\PLUGIN_DIR . 'modules/SiteOrigin/widgets/hero/hero.php' );
     require_once( \JS_Core\PLUGIN_DIR . 'modules/SiteOrigin/widgets/posts/posts.php' );
     require_once( \JS_Core\PLUGIN_DIR . 'modules/SiteOrigin/widgets/people/people.php' );
     require_once( \JS_Core\PLUGIN_DIR . 'modules/SiteOrigin/widgets/faqs/faqs.php' );
@@ -222,6 +223,14 @@ class SiteOrigin {
 
   function after_row( $grid_index, $grid_attributes ) {
     return '</div></div>';
+  }
+
+  public static function get_style_attrs($attrs) {
+    $style = '';
+    foreach ($attrs as $attr => $value) {
+      $style .= $attr . ':' . $value . ';';
+    }
+    return $style;
   }
 
   /**
