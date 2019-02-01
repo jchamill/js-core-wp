@@ -8,7 +8,7 @@
         <?php endif; ?>
         <?php
         if ( ! empty( $item['image'] ) ) {
-          print wp_get_attachment_image( $item['image'], $instance['display']['attachment_size'], false, array(
+          print wp_get_attachment_image( $item['image'], $instance['attachment_size'], false, array(
             'title' => $item['title']
           ) );
         }
