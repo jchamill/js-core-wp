@@ -146,6 +146,19 @@ class Structure {
 
   public function custom_fields() {
     include_once( \JS_Core\PLUGIN_DIR . 'modules/Structure/includes/fields.php' );
+
+    // Move advanced box just after title.
+    add_action( 'edit_form_after_title', array( $this, 'move_advanced_meta_boxes' ) );
+  }
+
+  public function move_advanced_meta_boxes() {
+    global $post, $wp_meta_boxes;
+
+    // Output "advanced" meta boxes.
+    do_meta_boxes( get_current_screen(), 'advanced', $post );
+
+    // Remove the initial "advanced" meta boxes.
+    unset( $wp_meta_boxes['page']['advanced'] );
   }
 
   public function custom_fields_map_key( $current_key ) {

@@ -1,4 +1,7 @@
 <?php if( ! empty( $instance['items'] ) ): ?>
+  <?php if ( sizeof( $instance['items'] ) > 1 ): ?>
+    <div class="hero-slider">
+  <?php endif; ?>
   <?php foreach( $instance['items'] as $i => $item ): ?>
     <?php
     $styles = array();
@@ -22,4 +25,7 @@
       </div>
     </div>
   <?php endforeach; ?>
+  <?php if ( sizeof( $instance['items'] ) > 1 ): ?>
+    </div>
+  <?php endif; ?>
 <?php endif; ?>

@@ -9,8 +9,24 @@ use Carbon_Fields\Field;
 
 Container::make( 'post_meta', 'Header' )
   ->show_on_post_type( 'page' )
+  ->set_context( 'advanced' )
+  ->set_priority( 'high' )
   ->add_fields( array(
-    Field::make( 'rich_text', 'crb_header_content', 'Content' ),
+    Field::make( 'complex', 'crb_slides', 'Slides' )
+      ->add_fields(array(
+        Field::make( 'text', 'crb_slide_title', 'Title' ),
+        Field::make( 'textarea', 'crb_slide_content', 'Description' ),
+        Field::make( 'text', 'crb_slide_cta_title', 'CTA Title' )
+          ->set_width( 50 ),
+        Field::make( 'text', 'crb_slide_cta_url', 'CTA URL' )
+          ->set_width( 50 ),
+        Field::make( 'image', 'crb_slide_image', 'Image' ),
+      ) ),
+    Field::make( 'select', 'crb_header_size', 'Size' )
+      ->add_options( array(
+        'small' => 'Small',
+        'large' => 'Large',
+      ) ),
   ) );
 
 Container::make( 'post_meta', 'Meta' )
