@@ -31,7 +31,7 @@
 
   <?php if ( ! empty( $instance['jump']['row_id'] ) ): ?>
     <div class="hero-down">
-      <a href="#<?php print esc_attr( $instance['jump']['row_id'] ); ?>"><span class="screen-reader-text">Skip to Content</span></a>
+      <a href="#<?php print esc_attr( $instance['jump']['row_id'] ); ?>" class="jump-to"><span class="screen-reader-text">Skip to Content</span></a>
     </div>
   <?php endif; ?>
 
