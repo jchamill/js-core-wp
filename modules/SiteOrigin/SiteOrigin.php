@@ -76,11 +76,19 @@ class SiteOrigin {
 
   public function row_fields( $fields ) {
     // New fields.
-    $fields['so_wrapper_class'] = array(
-      'name'        => __( 'Wrapper Class' ),
+    $fields['so_wrapper_id'] = array(
+      'name'        => __( 'Row ID' ),
       'type'        => 'text',
       'group'       => 'attributes',
-      'description' => __( 'A CSS class on the wrapper.' ),
+      'description' => __( 'A custom ID on the row.' ),
+      'priority'    => 4,
+    );
+
+    $fields['so_wrapper_class'] = array(
+      'name'        => __( 'Row Class' ),
+      'type'        => 'text',
+      'group'       => 'attributes',
+      'description' => __( 'A CSS class on the row.' ),
       'priority'    => 5,
     );
 
@@ -155,6 +163,12 @@ class SiteOrigin {
     );
 
     // Remove fields.
+    if ( isset($fields['id']) ) {
+      unset($fields['id']);
+    }
+    if ( isset($fields['class']) ) {
+      unset($fields['class']);
+    }
     if ( isset($fields['row_stretch']) ) {
       unset($fields['row_stretch']);
     }
@@ -232,10 +246,14 @@ class SiteOrigin {
 
   public function before_row( $grid_index, $attributes ) {
     $classes = array('so-row');
+    $row_id = '';
     $bg_image = '';
 
     if( !empty( $attributes['style']['so_light_text'] ) ) {
       $classes[] = 'so-light-text';
+    }
+    if ( !empty( $attributes['style']['so_wrapper_id'] ) ) {
+      $row_id = esc_attr( $attributes['style']['so_wrapper_id'] );
     }
     if ( !empty( $attributes['style']['so_wrapper_class'] ) ) {
       $classes[] = esc_attr($attributes['style']['so_wrapper_class']);
@@ -259,12 +277,17 @@ class SiteOrigin {
       $bg_image = self::get_attachment_image_src( $attributes['style']['background_image_attachment'], 'full' );
     }
 
+    $id = '';
+    if ( ! empty( $row_id ) ) {
+      $id = ' id="' . $row_id . '"';
+    }
+
     $style = '';
     if ( ! empty( $bg_image ) ) {
       $style = ' style="background-image:url(' . ( is_array( $bg_image ) ? esc_url( $bg_image[0] ) : esc_url( $bg_image ) ) . ');"';
     }
 
-    return '<div class="' . implode(' ', $classes) . '"' . $style . '><div class="container">';
+    return '<div' . $id . ' class="' . implode(' ', $classes) . '"' . $style . '><div class="container">';
   }
 
 
