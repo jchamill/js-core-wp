@@ -28,4 +28,11 @@
   <?php if ( sizeof( $instance['items'] ) > 1 ): ?>
     </div>
   <?php endif; ?>
+
+  <?php if ( ! empty( $instance['jump']['row_id'] ) ): ?>
+    <div class="hero-down">
+      <a href="#<?php print esc_attr( $instance['jump']['row_id'] ); ?>"><span class="screen-reader-text">Skip to Content</span></a>
+    </div>
+  <?php endif; ?>
+
 <?php endif; ?>
