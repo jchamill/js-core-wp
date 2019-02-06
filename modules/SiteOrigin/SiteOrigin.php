@@ -199,6 +199,20 @@ class SiteOrigin {
 
   public function widget_fields( $fields ) {
 
+    $fields['so_widget_padding'] = array(
+      'name' => __('Default Padding'),
+      'type' => 'select',
+      'group' => 'layout',
+      'default' => 'no-padding',
+      'options' => array(
+        'top-bottom-padding' => __('Top and Bottom'),
+        'top-only-padding' => __('Top Only'),
+        'bottom-only-padding' => __('Bottom Only'),
+        'no-padding' => __('None'),
+      ),
+      'priority' => 7,
+    );
+
     $fields['so_widget_width'] = array(
       'name' => __( 'Width' ),
       'type' => 'select',
@@ -213,6 +227,17 @@ class SiteOrigin {
       'priority' => 10,
     );
 
+    $fields['so_widget_top_style'] = array(
+      'name' => __( 'Top Style' ),
+      'type' => 'select',
+      'group' => 'design',
+      'options' => array(
+        '' => __( 'None' ),
+        'so-top-border-gray' => __('Gray Border'),
+      ),
+      'priority' => 12,
+    );
+
     $fields['so_widget_bottom_style'] = array(
       'name' => __( 'Bottom Style' ),
       'type' => 'select',
@@ -221,7 +246,7 @@ class SiteOrigin {
         '' => __( 'None' ),
         'so-bottom-border-gray' => __('Gray Border'),
       ),
-      'priority' => 12,
+      'priority' => 14,
     );
 
     unset( $fields['background'] );
@@ -233,8 +258,17 @@ class SiteOrigin {
   }
 
   function widget_style_attributes( $attributes, $style ) {
+
+    if ( !empty( $style['so_widget_padding'] ) ) {
+      $attributes['class'][] = esc_attr( $style['so_widget_padding'] );
+    }
+
     if ( !empty( $style['so_widget_width'] ) ) {
       $attributes['class'][] = esc_attr( $style['so_widget_width'] );
+    }
+
+    if ( !empty( $style['so_widget_top_style'] ) ) {
+      $attributes['class'][] = esc_attr( $style['so_widget_top_style'] );
     }
 
     if ( !empty( $style['so_widget_bottom_style'] ) ) {
