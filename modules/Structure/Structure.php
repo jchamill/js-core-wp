@@ -15,7 +15,6 @@ class Structure {
   }
 
   public function admin_scripts() {
-    wp_enqueue_script( 'js-admin-faqs', plugins_url( 'js/js-admin-faqs.js', __FILE__ ) );
     wp_enqueue_script( 'js-admin-people', plugins_url( 'js/js-admin-people.js', __FILE__ ) );
   }
 
@@ -26,8 +25,6 @@ class Structure {
 
   public function create_post_types() {
     $this->create_person_post_type();
-    $this->create_faq_post_type();
-    $this->create_testimonial_post_type();
   }
 
   public function create_person_post_type() {
@@ -47,44 +44,6 @@ class Structure {
     );
 
     register_post_type( 'person', array_merge( $defaults, $post_type ) );
-  }
-
-  public function create_faq_post_type() {
-    $defaults = $this->get_post_type_defaults();
-
-    $post_type = array(
-      'labels' => array(
-        'name' => __( 'FAQs' ),
-        'singular_name' => __( 'Faq' ),
-      ),
-      'rewrite' => array(
-        'slug' => 'faqs',
-        'with_front' => false,
-      ),
-      'menu_icon' => 'dashicons-editor-help',
-      'taxonomies' => array( 'faq_category' ),
-    );
-
-    register_post_type( 'faq', array_merge( $defaults, $post_type ) );
-  }
-
-  public function create_testimonial_post_type() {
-    $defaults = $this->get_post_type_defaults();
-
-    $post_type = array(
-      'labels' => array(
-        'name' => __( 'Testimonials' ),
-        'singular_name' => __( 'Testimonial' ),
-      ),
-      'rewrite' => array(
-        'slug' => 'testimonials',
-        'with_front' => false,
-      ),
-      'menu_icon' => 'dashicons-format-quote',
-      'taxonomies' => array( 'testimonial_category' ),
-    );
-
-    register_post_type( 'testimonial', array_merge( $defaults, $post_type ) );
   }
 
   public function get_post_type_defaults() {
@@ -111,32 +70,6 @@ class Structure {
         'label' => __( 'Categories' ),
         'rewrite' => array(
           'slug' => 'person-category',
-          'with_front' => false,
-        ),
-        'hierarchical' => true,
-      )
-    );
-
-    register_taxonomy(
-      'faq_category',
-      array( 'faq' ),
-      array(
-        'label' => __( 'Categories' ),
-        'rewrite' => array(
-          'slug' => 'faq-category',
-          'with_front' => false,
-        ),
-        'hierarchical' => true,
-      )
-    );
-
-    register_taxonomy(
-      'testimonial_category',
-      array( 'testimonial' ),
-      array(
-        'label' => __( 'Categories' ),
-        'rewrite' => array(
-          'slug' => 'testimonial-category',
           'with_front' => false,
         ),
         'hierarchical' => true,

@@ -17,6 +17,47 @@ class JS_Core_Faqs_Widget extends SiteOrigin_Widget {
     );
   }
 
+  function get_widget_form() {
+    return array(
+      'categories' => array(
+        'type' => 'repeater',
+        'label' => 'Categories',
+        'item_name'  => 'Categories',
+        'item_label' => array(
+          'selector'     => "[name*='category']",
+          'update_event' => 'change',
+          'value_method' => 'val'
+        ),
+        'fields' => array(
+          'category' => array(
+            'type' => 'text',
+            'label' => 'Category'
+          ),
+          'faqs' => array(
+            'type' => 'repeater',
+            'label' => 'FAQs',
+            'item_name'  => 'FAQ',
+            'item_label' => array(
+              'selector'     => "[name*='title']",
+              'update_event' => 'change',
+              'value_method' => 'val'
+            ),
+            'fields' => array(
+              'title' => array(
+                'type' => 'text',
+                'label' => 'Title'
+              ),
+              'content' => array(
+                'type' => 'textarea',
+                'label' => 'Content'
+              ),
+            )
+          ),
+        )
+      ),
+    );
+  }
+
   public function get_template_variables( $instance, $args ) {
     if( empty( $instance ) ) return array();
 

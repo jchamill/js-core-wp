@@ -1,29 +1,30 @@
-<?php if( ! empty( $faqs ) ): ?>
+<?php if( ! empty( $instance['categories'] ) ): ?>
   <div class="faqs">
-    <?php $show_groups = sizeof( $faqs ) > 1; ?>
-    <?php $wrapper_classes = $show_groups ? array( 'faq-group' ) : array(); ?>
-    <?php foreach ( $faqs as $faq ): ?>
-      <div id="faq-<?php print $faq['term_id']; ?>" class="<?php print implode( ' ', $wrapper_classes ); ?>">
+    <?php $show_groups = sizeof( $instance['categories'] ) > 1; ?>
+    <?php $wrapper_classes = $show_groups ? array( 'faq-group' ) : array( 'faq-no-group' ); ?>
+    <?php foreach ( $instance['categories'] as $category ): ?>
+      <div class="<?php print implode( ' ', $wrapper_classes ); ?>">
         <?php if ( $show_groups ): ?>
-          <h3 class="faq-category"><?php print $faq['name']; ?></h3>
+          <h3 class="faq-category"><?php print $category['category']; ?></h3>
         <?php endif; ?>
         <ol class="faq-content">
-          <?php while ( $faq['loop']->have_posts() ): $faq['loop']->the_post(); ?>
+          <?php foreach ( $category['faqs'] as $faq ): ?>
             <?php $classes = array( 'faq' ); ?>
             <?php
-            if ( $_GET['post'] == get_the_ID() ) {
+            // Hash to identify the FAQ is more accurate, an index changes if order changes.
+            $hash = substr( md5( $faq['title'] ), 0, 6 );
+            if ( $_GET['post'] === $hash ) {
               $classes[] = 'faq-open';
             }
             ?>
-            <li id="post-<?php print get_the_ID(); ?>" class="<?php print implode( ' ', $classes ); ?>">
-              <h5 class="faq-question"><?php the_title(); ?></h5>
+            <li id="faq-<?php print $hash; ?>" class="<?php print implode( ' ', $classes ); ?>">
+              <h5 class="faq-question"><?php print $faq['title']; ?></h5>
               <div class="faq-answer">
-                <?php the_content(); ?>
+                <?php print nl2br( $faq['content'] ); ?>
               </div>
             </li>
-          <?php endwhile; ?>
+          <?php endforeach; ?>
         </ol>
-        <?php wp_reset_postdata(); ?>
       </div>
     <?php endforeach; ?>
   </div>
