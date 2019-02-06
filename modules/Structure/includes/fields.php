@@ -38,6 +38,14 @@ Container::make( 'post_meta', 'Meta' )
       ->set_value_type( 'url' )
   ) );
 
+Container::make( 'post_meta', 'Details' )
+  ->show_on_post_type( 'person' )
+  ->add_fields( array(
+    Field::make( 'text', 'crb_job_title', 'Job Title' ),
+    Field::make( 'checkbox', 'crb_featured', 'Featured Post' )
+      ->set_option_value(1),
+  ) );
+
 /**
  * Term Fields.
  */

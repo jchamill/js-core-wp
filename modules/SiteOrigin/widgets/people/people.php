@@ -23,6 +23,15 @@ class JS_Core_People_Widget extends SiteOrigin_Widget {
         'type' => 'text',
         'label' => 'Title',
       ),
+      'display' => array(
+        'type' => 'select',
+        'label' => __( 'Display' ),
+        'default' => 'all',
+        'options' => array(
+          'all' => __( 'All' ),
+          'featured' => __( 'Featured' ),
+        )
+      ),
       'attachment_size' => array(
         'label' => 'Image size',
         'type' => 'image-size',
@@ -31,9 +40,30 @@ class JS_Core_People_Widget extends SiteOrigin_Widget {
     );
   }
 
+  function get_template_name( $instance ) {
+    switch ( $instance['display'] ) {
+      case 'featured':
+        $name = 'featured';
+        break;
+      default:
+        $name = 'default';
+    }
+    return $name;
+  }
+
   public function get_template_variables( $instance, $args ) {
     if( empty( $instance ) ) return array();
 
+    if ( $instance['display'] === 'all' ) {
+      return $this->get_all_display_template_variables( $instance, $args );
+    }
+
+    if ( $instance['display'] === 'featured' ) {
+      return $this->get_featured_display_template_variables( $instance, $args );
+    }
+  }
+
+  protected function get_all_display_template_variables( $instance, $args ) {
     $categories = get_categories(array(
       'taxonomy' => 'person_category',
       'hide_empty' => true,
@@ -69,6 +99,24 @@ class JS_Core_People_Widget extends SiteOrigin_Widget {
       'people' => $people,
     );
   }
+
+  protected function get_featured_display_template_variables( $instance, $args ) {
+    $args = array(
+      'post_type' => 'person',
+      'posts_per_page' => 3,
+      'orderby' => 'publish_date',
+      'order' => 'DESC',
+      'meta_query' => array(array(
+        'key' => '_crb_featured',
+        'value' => 1,
+      )),
+    );
+
+    return array(
+      'loop' => new WP_Query($args),
+    );
+  }
+
 }
 
 siteorigin_widget_register( 'js-core-people', __FILE__, 'JS_Core_People_Widget' );

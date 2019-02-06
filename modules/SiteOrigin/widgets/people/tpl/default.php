@@ -10,6 +10,7 @@
       <?php endif; ?>
       <ul class="people">
         <?php while ( $person['loop']->have_posts() ): $person['loop']->the_post(); ?>
+          <?php $job_title = \JS_Core\Modules\Structure::get_field( 'crb_job_title' ); ?>
           <li>
             <div class="post-block">
               <a href="<?php print esc_url( get_permalink() ); ?>">
@@ -18,6 +19,9 @@
                 </div>
                 <div class="post-content">
                   <h5 class="person-name"><?php the_title(); ?></h5>
+                  <?php if ($job_title): ?>
+                    <p class="person-title"><?php print $job_title; ?></p>
+                  <?php endif; ?>
                 </div>
               </a>
             </div>
