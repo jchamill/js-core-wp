@@ -34,6 +34,7 @@ class SiteOrigin {
     require_once( \JS_Core\PLUGIN_DIR . 'modules/SiteOrigin/widgets/people/people.php' );
     require_once( \JS_Core\PLUGIN_DIR . 'modules/SiteOrigin/widgets/faqs/faqs.php' );
     require_once( \JS_Core\PLUGIN_DIR . 'modules/SiteOrigin/widgets/logos/logos.php' );
+    require_once( \JS_Core\PLUGIN_DIR . 'modules/SiteOrigin/widgets/cards/cards.php' );
     require_once( \JS_Core\PLUGIN_DIR . 'modules/SiteOrigin/widgets/stats/stats.php' );
     require_once( \JS_Core\PLUGIN_DIR . 'modules/SiteOrigin/widgets/callout/callout.php' );
     require_once( \JS_Core\PLUGIN_DIR . 'modules/SiteOrigin/widgets/section-header/section-header.php' );
@@ -119,8 +120,6 @@ class SiteOrigin {
         '' => __( 'None' ),
         'so-bg-light-gray' => __('Light Gray'),
         'so-bg-dark-gray' => __('Dark Gray'),
-        'so-bg-blue' => __('Blue'),
-        'so-bg-red' => __('Red'),
       ),
       'priority' => 1,
     );
