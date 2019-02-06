@@ -133,6 +133,28 @@ class SiteOrigin {
       'priority'    => 10,
     );
 
+    $fields['so_top_style'] = array(
+      'name' => __( 'Top Style' ),
+      'type' => 'select',
+      'group' => 'design',
+      'options' => array(
+        '' => __( 'None' ),
+        'so-top-border-gray' => __('Gray Border'),
+      ),
+      'priority' => 11,
+    );
+
+    $fields['so_bottom_style'] = array(
+      'name' => __( 'Bottom Style' ),
+      'type' => 'select',
+      'group' => 'design',
+      'options' => array(
+        '' => __( 'None' ),
+        'so-bottom-border-gray' => __('Gray Border'),
+      ),
+      'priority' => 12,
+    );
+
     // Remove fields.
     if ( isset($fields['row_stretch']) ) {
       unset($fields['row_stretch']);
@@ -164,13 +186,27 @@ class SiteOrigin {
 
   public function widget_fields( $fields ) {
 
+    $fields['so_widget_width'] = array(
+      'name' => __( 'Width' ),
+      'type' => 'select',
+      'group' => 'layout',
+      'default' => 'so-widget-width-full',
+      'options' => array(
+        'so-widget-width-large' => __( 'Large' ),
+        'so-widget-width-medium' => __( 'Medium' ),
+        'so-widget-width-small' => __( 'Small' ),
+        'so-widget-width-full' => __( 'Full Width' ),
+      ),
+      'priority' => 10,
+    );
+
     $fields['so_widget_bottom_style'] = array(
       'name' => __( 'Bottom Style' ),
       'type' => 'select',
       'group' => 'design',
       'options' => array(
         '' => __( 'None' ),
-        'so-bottom-gray-border' => __('Gray Border'),
+        'so-bottom-border-gray' => __('Gray Border'),
       ),
       'priority' => 12,
     );
@@ -184,6 +220,10 @@ class SiteOrigin {
   }
 
   function widget_style_attributes( $attributes, $style ) {
+    if ( !empty( $style['so_widget_width'] ) ) {
+      $attributes['class'][] = esc_attr( $style['so_widget_width'] );
+    }
+
     if ( !empty( $style['so_widget_bottom_style'] ) ) {
       $attributes['class'][] = esc_attr( $style['so_widget_bottom_style'] );
     }
@@ -206,6 +246,12 @@ class SiteOrigin {
     }
     if ( !empty( $attributes['style']['so_background'] ) ) {
       $classes[] = esc_attr($attributes['style']['so_background']);
+    }
+    if ( !empty( $attributes['style']['so_top_style'] ) ) {
+      $classes[] = esc_attr($attributes['style']['so_top_style']);
+    }
+    if ( !empty( $attributes['style']['so_bottom_style'] ) ) {
+      $classes[] = esc_attr($attributes['style']['so_bottom_style']);
     }
     if ( !empty( $attributes['style']['so_default_padding'] ) ) {
       $classes[] = esc_attr($attributes['style']['so_default_padding']);
