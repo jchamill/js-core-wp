@@ -1,15 +1,20 @@
 <?php if( ! empty( $instance['items'] ) ): ?>
+  <?php $BackgroundImage = \JS_Core\Helpers\BackgroundImage::getInstance(); ?>
+
   <?php if ( sizeof( $instance['items'] ) > 1 ): ?>
     <div class="hero-slider">
   <?php endif; ?>
+
   <?php foreach( $instance['items'] as $i => $item ): ?>
     <?php
-    $styles = array();
-    if ( ! empty( $item['image'] ) ) {
-      $styles['background-image'] = 'url(' . array_shift( wp_get_attachment_image_src( $item['image'], $item['display']['attachment_size'] ) ) . ')';
-    }
+    $index = $BackgroundImage->get_next_index();
+    $config = array(
+      'selector' => '.widget .hero-' . $index,
+      'image' => $item['image'],
+    );
+    $BackgroundImage->add_image( $config );
     ?>
-    <div class="hero-item so-light-text" style="<?php print \JS_Core\Modules\SiteOrigin::get_style_attrs($styles); ?>">
+    <div class="hero-item so-light-text hero-<?php print $index; ?>">
       <div class="container">
         <h1><?php print $item['title']; ?></h1>
 

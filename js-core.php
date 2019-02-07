@@ -23,3 +23,5 @@ new \JS_Core\Modules\Structure();
 
 require_once \JS_Core\PLUGIN_DIR . 'modules/SiteOrigin/SiteOrigin.php';
 new \JS_Core\Modules\SiteOrigin();
+
+require_once \JS_Core\PLUGIN_DIR . 'modules/Helpers/BackgroundImage.php';
