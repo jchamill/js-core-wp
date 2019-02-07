@@ -22,13 +22,15 @@ class BackgroundImage {
     $css = '';
 
     foreach ( $this->config as $config ) {
-      $css .= $config['selector'] . '{background-image: url(' . array_shift( wp_get_attachment_image_src( $config['image'], 'thumbnail' ) ) . ');}';
-      $css .= '@media only screen and (min-width:720px){';
-      $css .= $config['selector'] . '{background-image: url(' . array_shift( wp_get_attachment_image_src( $config['image'], 'medium' ) ) . ');}';
-      $css .= '}';
-      $css .= '@media only screen and (min-width:1100px){';
-      $css .= $config['selector'] . '{background-image: url(' . array_shift( wp_get_attachment_image_src( $config['image'], 'large' ) ) . ');}';
-      $css .= '}';
+      if ( isset( $config['selector'], $config['image'] ) ) {
+        $css .= $config['selector'] . '{background-image: url(' . array_shift( wp_get_attachment_image_src( $config['image'], 'thumbnail' ) ) . ');}';
+        $css .= '@media only screen and (min-width:720px){';
+        $css .= $config['selector'] . '{background-image: url(' . array_shift( wp_get_attachment_image_src( $config['image'], 'medium' ) ) . ');}';
+        $css .= '}';
+        $css .= '@media only screen and (min-width:1100px){';
+        $css .= $config['selector'] . '{background-image: url(' . array_shift( wp_get_attachment_image_src( $config['image'], 'large' ) ) . ');}';
+        $css .= '}';
+      }
     }
 
     print '<style type="text/css" media="all">' . $css . '</style>';
