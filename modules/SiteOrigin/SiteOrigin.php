@@ -76,7 +76,7 @@ class SiteOrigin {
   }
 
   public function row_fields( $fields ) {
-    // New fields.
+
     $fields['so_wrapper_id'] = array(
       'name'        => __( 'Row ID' ),
       'type'        => 'text',
@@ -200,6 +200,18 @@ class SiteOrigin {
 
   public function widget_fields( $fields ) {
 
+    $fields['so_widget_alignment'] = array(
+      'name' => __('Alignment'),
+      'type' => 'select',
+      'group' => 'layout',
+      'default' => 'align-center',
+      'options' => array(
+        'align-left' => __('Left'),
+        'align-center' => __('Center'),
+      ),
+      'priority' => 1,
+    );
+
     $fields['so_widget_padding'] = array(
       'name' => __('Default Padding'),
       'type' => 'select',
@@ -259,6 +271,10 @@ class SiteOrigin {
   }
 
   function widget_style_attributes( $attributes, $style ) {
+
+    if ( !empty( $style['so_widget_alignment'] ) ) {
+      $attributes['class'][] = esc_attr( $style['so_widget_alignment'] );
+    }
 
     if ( !empty( $style['so_widget_padding'] ) ) {
       $attributes['class'][] = esc_attr( $style['so_widget_padding'] );
