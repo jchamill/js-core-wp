@@ -30,6 +30,7 @@ class SiteOrigin {
     }
 
     require_once( \JS_Core\PLUGIN_DIR . 'modules/SiteOrigin/widgets/hero/hero.php' );
+    require_once( \JS_Core\PLUGIN_DIR . 'modules/SiteOrigin/widgets/button/button.php' );
     require_once( \JS_Core\PLUGIN_DIR . 'modules/SiteOrigin/widgets/posts/posts.php' );
     require_once( \JS_Core\PLUGIN_DIR . 'modules/SiteOrigin/widgets/people/people.php' );
     require_once( \JS_Core\PLUGIN_DIR . 'modules/SiteOrigin/widgets/faqs/faqs.php' );
