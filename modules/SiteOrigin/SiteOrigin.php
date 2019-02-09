@@ -298,7 +298,6 @@ class SiteOrigin {
   public function before_row( $grid_index, $attributes ) {
     $classes = array('so-row');
     $row_id = '';
-    $bg_image = '';
 
     if( !empty( $attributes['style']['so_light_text'] ) ) {
       $classes[] = 'so-light-text';
@@ -324,8 +323,21 @@ class SiteOrigin {
     if ( !empty( $attributes['style']['so_default_padding'] ) ) {
       $classes[] = esc_attr($attributes['style']['so_default_padding']);
     }
-    if ( !empty( $attributes['style']['background_image_attachment'] ) ) {
-      $bg_image = self::get_attachment_image_src( $attributes['style']['background_image_attachment'], 'full' );
+
+    $style = '';
+    if ( ! empty( $attributes['style']['background_image_attachment'] ) && is_numeric( $attributes['style']['background_image_attachment'] ) ) {
+      // Image is an attachment so we can get alternate image sizes.
+      $BackgroundImage = \JS_Core\Helpers\BackgroundImage::get_instance();
+      if ( empty( $row_id ) ) {
+        $row_id = 'row-bg-' . $BackgroundImage->get_next_index();
+      }
+      $config = array(
+        'selector' => '#' . $row_id,
+        'image' => $attributes['style']['background_image_attachment'],
+      );
+      $BackgroundImage->add_image( $config );
+    } elseif ( ! empty( $attributes['style']['background_image_attachment_fallback'] ) ) {
+      $style = ' style="background-image:url(' . esc_url( $attributes['style']['background_image_attachment_fallback'] ) . ');"';
     }
 
     $id = '';
@@ -333,14 +345,8 @@ class SiteOrigin {
       $id = ' id="' . $row_id . '"';
     }
 
-    $style = '';
-    if ( ! empty( $bg_image ) ) {
-      $style = ' style="background-image:url(' . ( is_array( $bg_image ) ? esc_url( $bg_image[0] ) : esc_url( $bg_image ) ) . ');"';
-    }
-
     return '<div' . $id . ' class="' . implode(' ', $classes) . '"' . $style . '><div class="container">';
   }
-
 
   function after_row( $grid_index, $grid_attributes ) {
     return '</div></div>';
@@ -353,21 +359,4 @@ class SiteOrigin {
     }
     return $style;
   }
-
-  /**
-   * This function is a duplicate directly from the SiteOrigin plugin.
-   */
-  public static function get_attachment_image_src( $image, $size = 'full' ){
-    if( empty( $image ) ) {
-      return false;
-    }
-    else if( is_numeric( $image ) ) {
-      return wp_get_attachment_image_src( $image, $size );
-    }
-    else if( is_string( $image ) ) {
-      preg_match( '/(.*?)\#([0-9]+)x([0-9]+)$/', $image, $matches );
-      return ! empty( $matches ) ? $matches : false;
-    }
-  }
-
 }

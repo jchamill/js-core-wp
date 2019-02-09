@@ -1,5 +1,5 @@
 <?php if( ! empty( $instance['items'] ) ): ?>
-  <?php $BackgroundImage = \JS_Core\Helpers\BackgroundImage::getInstance(); ?>
+  <?php $BackgroundImage = \JS_Core\Helpers\BackgroundImage::get_instance(); ?>
 
   <?php if ( sizeof( $instance['items'] ) > 1 ): ?>
     <div class="hero-slider">
