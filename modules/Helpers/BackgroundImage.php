@@ -23,12 +23,15 @@ class BackgroundImage {
 
     foreach ( $this->config as $config ) {
       if ( isset( $config['selector'], $config['image'] ) ) {
-        $css .= $config['selector'] . '{background-image: url(' . array_shift( wp_get_attachment_image_src( $config['image'], 'thumbnail' ) ) . ');}';
+        $thumbnail = wp_get_attachment_image_src( $config['image'], 'thumbnail' );
+        $medium = wp_get_attachment_image_src( $config['image'], 'medium' );
+        $large = wp_get_attachment_image_src( $config['image'], 'large' );
+        $css .= $config['selector'] . '{background-image: url(' . $thumbnail[0] . ');}';
         $css .= '@media only screen and (min-width:720px){';
-        $css .= $config['selector'] . '{background-image: url(' . array_shift( wp_get_attachment_image_src( $config['image'], 'medium' ) ) . ');}';
+        $css .= $config['selector'] . '{background-image: url(' . $medium[0] . ');}';
         $css .= '}';
         $css .= '@media only screen and (min-width:1100px){';
-        $css .= $config['selector'] . '{background-image: url(' . array_shift( wp_get_attachment_image_src( $config['image'], 'large' ) ) . ');}';
+        $css .= $config['selector'] . '{background-image: url(' . $large[0] . ');}';
         $css .= '}';
       }
     }
